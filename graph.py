@@ -21,18 +21,16 @@ class Graph(object):
         self.Graph[node2].append((node1, weight))
 
     def removeNode(self, node):
+      
       #Suppretion node
       if node in self.Graph:
         del self.Graph[node]
 
       # Suppression des intersections
       for _node in self.Graph:
-        print("node : ",_node)
-        for _next in self.Graph:
-          print("voisin : ",_next)
-
+        for _next in self.Graph[_node]:
           if _next[0] == node:
-            del _next
+            self.Graph[_node].remove(_next)
     
     def __str__(self):
         str_return = ""

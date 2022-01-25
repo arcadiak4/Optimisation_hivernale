@@ -13,5 +13,6 @@ list_node_edge = {
     }
 
 graph = graph.Graph(list_node_edge)
-graph.removeNode("I")
+graph.removeNode("A")
+graph.addNode("A", "B",12)
 print(graph)
