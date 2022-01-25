@@ -12,6 +12,6 @@ list_node_edge = {
     "I" : [("B",2),("C",3)]
     }
 
-graph = Graph(list_node_edge)
-graph.addNode("L", "J", 5)
+graph = graph.Graph(list_node_edge)
+graph.removeNode("I")
 print(graph)

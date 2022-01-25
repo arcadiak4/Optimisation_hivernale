@@ -18,3 +18,5 @@ fonction prim(G, s)
 '''
 
 
+
+
