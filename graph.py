@@ -37,6 +37,27 @@ class Graph(object):
         for node in self.Graph:
             str_return += node + " : " + str(self.Graph[node]) + '\n'
         return str_return
+
+    def getWeight(self, node1, node2):
+          
+        # Si la node n'existe pas, retourne -1
+        if(node1 not in self.Graph):
+            return -1
+
+        # Trouve la position du voisin s'il existe
+        i = 0
+        while(i < len(self.Graph[node1]) and self.Graph[node1][i][0] != node2):
+            i += 1
+        
+        # Si les deux sommets ne sont pas voisins, retourne 0
+        if (i >= len(self.Graph[node1])):
+            return 0
+        
+        # Si les sommets sont voisins, retourne leur poids
+        else:
+            return self.Graph[node1][i][1]
+        
+
     
 
     
