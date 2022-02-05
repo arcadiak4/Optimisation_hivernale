@@ -1,11 +1,19 @@
 import sys
 from typing import List
 
+############################################
+#             GLOBAL VARIABLES             #
+############################################
+
 # Number of nodes in the graph 
 V = 5 
 
-# Dynamic array to store the final answer
+# Dynamic array to store the final path
 final_path = []
+
+############################################
+#                FUNCTIONS                 #
+############################################
 
 # from the current node, get the node with the lowest cost
 def minimum_key(key : List[int], visitedMST : List[int]) -> int:
@@ -79,12 +87,11 @@ def DFS(edges_list : List[List[int]], nb_nodes : int, starting_vertex : int, vis
                 continue
             DFS(edges_list, nb_nodes, i, visited_nodes)
 
-
 ############################################
-#                                          #
 #                   MAIN                   #
-#                                          #
 ############################################
+
+# The main purpose is to solve the Travelling Salesman Problem (TSP)
 
 # initial graph
 graph = [[ 0, 10, 18, 40, 20 ], 
@@ -93,7 +100,7 @@ graph = [[ 0, 10, 18, 40, 20 ],
          [ 40, 15, 25, 0, 30 ],
          [ 20, 13, 25, 30, 0 ]]
 
-# get the output as MST 
+# perform Prim's Algorithm in order to get the Minimum Spanning Tree (MST) 
 v = primMST(graph)
 
 # create a dynamic matrix

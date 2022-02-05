@@ -1,1 +1,23 @@
+# Optimisation hivernale
 
+### Le but de ce projet est de s'intéresser à l’optimisation des trajets des équipes de déneigement de la ville de Montréal.
+
+## Ce répertoire contient :
+1. un fichier **AUTHORS** contenant la liste des participants de ce devoir
+2. une **synthèse** du devoir sous format PDF
+3. un fichier **LINKS** contenant le lien vers la vidéo de présentation de la solution proposée
+4. une sous-arborescence consacrée à l’étude du **cas théorique**
+5. une sous-arborescence consacrée à l’étude du **cas réel de la ville de Montréal**
+6. un **script** exécutant une démonstration de la solution
+
+## Execution des tests
+
+### 1. Cas théorique : déterminer le trajet minimal du drone lors du survol du réseau routier
+```sh
+python3 ???
+```
+
+### 2. Cas théorique : déterminer le trajet minimal d’un appareil de déblaiement d’une zone de la ville
+```sh
+python3 ???
+```
