@@ -56,6 +56,30 @@ class Graph(object):
         # Si les sommets sont voisins, retourne leur poids
         else:
             return self.Graph[node1][i][1]
+
+    def getMatriceWeight(self):
+
+        # Initialisation de la matrice à 0
+        matriceGraph = [[0 for x in range(len(self.Graph))] for i in range(len(self.Graph))]
+
+        i = 0
+        j = 0
+
+        # Remplissage de la matrice
+        for node1 in self.Graph:
+            for node2 in self.Graph:
+                matriceGraph[i][j] = self.getWeight(node1, node2)
+                j += 1
+            j = 0
+            i += 1
+        
+        return matriceGraph
+
+    def printLnMatriceWeight(self):
+          matrice = self.getMatriceWeight()
+
+          for elem in matrice:
+                print(elem)
         
 
     
