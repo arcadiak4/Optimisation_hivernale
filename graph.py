@@ -1,6 +1,5 @@
-import pprint
+import sys
 from collections import defaultdict
-
 
 class Graph(object):
     """ Graph data structure, undirected by default. """
@@ -22,7 +21,16 @@ class Graph(object):
         self.Graph[node2].append((node1, weight))
 
     def removeNode(self, node):
-      pass
+      
+      #Suppretion node
+      if node in self.Graph:
+        del self.Graph[node]
+
+      # Suppression des intersections
+      for _node in self.Graph:
+        for _next in self.Graph[_node]:
+          if _next[0] == node:
+            self.Graph[_node].remove(_next)
     
     def __str__(self):
         str_return = ""
@@ -30,78 +38,91 @@ class Graph(object):
             str_return += node + " : " + str(self.Graph[node]) + '\n'
         return str_return
 
+    def getWeight(self, node1, node2):
+          
+        # Si la node n'existe pas, retourne -1
+        if(node1 not in self.Graph):
+            return -1
+
+        # Trouve la position du voisin s'il existe
+        i = 0
+        while(i < len(self.Graph[node1]) and self.Graph[node1][i][0] != node2):
+            i += 1
         
-###DJIKSTRA incomplet malheuresement...
-   #pour meux comprendre ce que j'ai tenté de faire : 
-   #"https://fr.wikipedia.org/wiki/Algorithme_de_Dijkstra#Impl%C3%A9mentation_de_l'algorithme"
-       
-    def get_nodes(self):#return a list of all the nodes
-        list_nodes=[]
-        for _node in self.Graph:
-            list_nodes.append(_node)
-        return list_nodes     
-            
-    def initalization(self, node):
-        #on initialise les sommets à infini(= sys.maxsize)
-        for _node in self.Graph:
-            for _next in self.Graph[_node]:
-                lnext = list(_next)
-                lnext[1] = sys.maxsize   
-                _next = tuple(lnext)
-        #from node to node -> dist = 0        
-        #self.Graph[node].append((node,0))
+        # Si les deux sommets ne sont pas voisins, retourne 0
+        if (i >= len(self.Graph[node1])):
+            return 0
         
+        # Si les sommets sont voisins, retourne leur poids
+        else:
+            return self.Graph[node1][i][1]
+
+    def getMatriceWeight(self):
+
+        # Initialisation de la matrice à 0
+        matriceGraph = [[0 for x in range(len(self.Graph))] for i in range(len(self.Graph))]
+
+        i = 0
+        j = 0
+
+        # Remplissage de la matrice
+        for node1 in self.Graph:
+            for node2 in self.Graph:
+                matriceGraph[i][j] = self.getWeight(node1, node2)
+                j += 1
+            j = 0
+            i += 1
         
-    def find_min(self, node): #retourne le sommet avec le poids minimum -> le plus petit des poids(node,sommet) 
-        mini = sys.maxsize
-        n = None
-        for t in self.Graph[node]:
-            if t[1] < mini:
-                mini = t[1]
-                n = t[0]
-       
-        return n
+        return matriceGraph
 
-    def maj_dist(self,node,node1,node2):
-        for t in self.Graph[node1]:
-            if t[0] == node2:
-                d12=t[1] #poids(node,node1)
-        for t in self.Graph[node]:
-            if t[0] == node1 :
-                d1=t[1] #poids(node,node1)
-            if t[0] == node2:
-                d2= t[1] #poids(node,node2)
+    def printLnMatriceWeight(self):
+          matrice = self.getMatriceWeight()
 
-        #if d2 > (d1 + d12) :
-        #  predecesseur[node2]=node1
+          for elem in matrice:
+                print(elem)
+
+    def dijsktra(self, initial, end):
+        # shortest paths is a dict of nodes
+        # whose value is a tuple of (previous node, weight)
+        shortest_paths = {initial: (None, 0)}
+        current_node = initial
+        visited = set()
+        costWay = 0
+        
+        while current_node != end:
+            visited.add(current_node)
+            destinations = self.Graph[current_node]
+            weight_to_current_node = shortest_paths[current_node][1]
+
+            for next_node in destinations:
+                weight = self.getWeight(current_node, next_node[0]) + weight_to_current_node
+                if next_node[0] not in shortest_paths:
+                    shortest_paths[next_node[0]] = (current_node, weight)
+                else:
+                    current_shortest_weight = shortest_paths[next_node[0]][1]
+                    if current_shortest_weight > weight:
+                        shortest_paths[next_node[0]] = (current_node, weight)
             
-   
-    def djikstra(self, node):    
-        #initializatoin(self,node)
-        list_nodes = self.Graph.get_nodes()
-        list_nodes.remove(node)
-        #tant que liste n'est pas vide
-        #while len(list_nodes) > 0:
-            
+            next_destinations = {node: shortest_paths[node] for node in shortest_paths if node not in visited}
+            if not next_destinations:
+                return "Route Not Possible"
+            # next node is the destination with the lowest weight
+            current_node = min(next_destinations, key=lambda k: next_destinations[k][1])
+        
+        # Work back through destinations in shortest path
+        path = []
+        while current_node is not None:
+            path.append(current_node)
+            next_node = shortest_paths[current_node][0]
+            costWay += self.getWeight(current_node, next_node)
+            current_node = next_node
+        # Reverse path
+        path = path[::-1]
+        return path, costWay
 
+        
 
-
-
-# Test
-list_node_edge = {
-    "A" : [("H",6),("B",12),("C",6),("D",10),("G",8)],
-    "B" : [("H",6),("I",2),("A",12),("C",6)],
-    "C" : [("B",6),("I",3),("A",6),("D",1)],
-    "D" : [("A",10),("C",1),("E",2),("F",4)],
-    "F" : [("D",4),("G",2)],
-    "G" : [("A",8),("F",2)],
-    "H" : [("A",6),("B",6)],
-    "I" : [("B",2),("C",3)]
-    }
-
-graph = Graph(list_node_edge, True)
-graph.addNode("L", "J", 5)
-print(graph)
+    
 
     
 
