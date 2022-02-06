@@ -6,7 +6,7 @@ from typing import List
 ############################################
 
 # Number of nodes in the graph 
-V = 5 
+V = 7 
 
 # Dynamic array to store the final path
 final_path = []
@@ -94,14 +94,17 @@ def DFS(edges_list : List[List[int]], nb_nodes : int, starting_vertex : int, vis
 # The main purpose is to solve the Travelling Salesman Problem (TSP)
 
 # initial graph
-graph = [[ 0, 10, 18, 40, 20 ], 
-         [ 10, 0, 35, 15, 12 ], 
-         [ 18, 35, 0, 25, 25 ], 
-         [ 40, 15, 25, 0, 30 ],
-         [ 20, 13, 25, 30, 0 ]]
+graph = [[ 0, 3, 0, 0, 0, 8, 0 ], 
+         [ 3, 0, 0, 8, 6, 10, 0 ], 
+         [ 0, 0, 0, 7, 10, 5, 12 ],
+         [ 0, 8, 7, 0, 4, 3, 0 ], 
+         [ 0, 6, 10, 4, 0, 0, 11 ], 
+         [ 8, 10, 5, 3, 0, 0, 0 ], 
+         [ 0, 0, 12, 0, 11, 0, 0 ]]
 
 # perform Prim's Algorithm in order to get the Minimum Spanning Tree (MST) 
 v = primMST(graph)
+print(v)
 
 # create a dynamic matrix
 edges_list = [None] * V
@@ -128,7 +131,8 @@ DFS(edges_list, V, 0, visited_nodes)
 # add the source node to the final path
 final_path.append(final_path[0])
 
-# print the path
+# display the path
+print("Chemin final :")
 for i in range(len(final_path)):
       print(final_path[i], "- ", end="")
 print()
