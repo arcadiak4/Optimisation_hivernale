@@ -9,15 +9,3 @@
 4. une sous-arborescence consacrée à l’étude du **cas théorique**
 5. une sous-arborescence consacrée à l’étude du **cas réel de la ville de Montréal**
 6. un **script** exécutant une démonstration de la solution
-
-## Execution des tests
-
-### 1. Cas théorique : déterminer le trajet minimal du drone lors du survol du réseau routier
-```sh
-python3 ???
-```
-
-### 2. Cas théorique : déterminer le trajet minimal d’un appareil de déblaiement d’une zone de la ville
-```sh
-python3 ???
-```
