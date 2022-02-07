@@ -21,8 +21,7 @@ class Graph(object):
         self.Graph[node2].append((node1, weight))
 
     def removeNode(self, node):
-      
-      #Suppretion node
+      #Suppression node
       if node in self.Graph:
         del self.Graph[node]
 
@@ -39,7 +38,6 @@ class Graph(object):
         return str_return
 
     def getWeight(self, node1, node2):
-          
         # Si la node n'existe pas, retourne -1
         if(node1 not in self.Graph):
             return -1
@@ -58,7 +56,6 @@ class Graph(object):
             return self.Graph[node1][i][1]
 
     def getMatriceWeight(self):
-
         # Initialisation de la matrice à 0
         matriceGraph = [[0 for x in range(len(self.Graph))] for i in range(len(self.Graph))]
 
@@ -82,8 +79,6 @@ class Graph(object):
                 print(elem)
 
     def dijsktra(self, initial, end):
-        # shortest paths is a dict of nodes
-        # whose value is a tuple of (previous node, weight)
         shortest_paths = {initial: (None, 0)}
         current_node = initial
         visited = set()
@@ -96,6 +91,7 @@ class Graph(object):
 
             for next_node in destinations:
                 weight = self.getWeight(current_node, next_node[0]) + weight_to_current_node
+                
                 if next_node[0] not in shortest_paths:
                     shortest_paths[next_node[0]] = (current_node, weight)
                 else:
@@ -104,6 +100,7 @@ class Graph(object):
                         shortest_paths[next_node[0]] = (current_node, weight)
             
             next_destinations = {node: shortest_paths[node] for node in shortest_paths if node not in visited}
+            
             if not next_destinations:
                 return "Route Not Possible"
             # next node is the destination with the lowest weight
