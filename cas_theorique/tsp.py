@@ -86,3 +86,27 @@ def DFS(edges_list : List[List[int]], nb_nodes : int, starting_vertex : int, vis
             if (visited_nodes[i]):
                 continue
             DFS(edges_list, nb_nodes, i, visited_nodes)
+
+def resolveWithDijkstra(graph_mat, graph, path : List[chr]):
+      final_path = []
+      for i in range(len(path)-1):
+            node1 = path[i]
+            node2 = path[i+1]
+
+            # if the two nodes are not connected
+            if (graph.getWeight(node1,node2) != 0):
+                  continue
+            
+            elif (graph.getWeight(node1,node2) == 0):
+                  # retrieve the shortest path between the two nodes
+                  intermediate_path : List[chr] = graph.dijsktra(node1,node2)[0]
+
+                  # concatenate to the final path
+                  left_array = path[:i]
+                  right_array = path[i+2:]
+                  final_path = left_array + intermediate_path + right_array
+
+                  # retrieve the cost between the two nodes
+                  intermediate_cost : List[chr] = graph.dijsktra(node1,node2)[1]
+                  
+      return final_path

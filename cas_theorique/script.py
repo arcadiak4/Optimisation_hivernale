@@ -1,3 +1,4 @@
+from typing import final
 import graph
 import tsp
 
@@ -18,10 +19,10 @@ init_graph = {
     "F" : [("C",12),("E",11)]
     }
 
-graph = graph.Graph(init_graph)
-print(graph)
-graph = graph.getMatriceWeight()
-# print(graph)
+graph_dict = graph.Graph(init_graph)
+print(graph_dict)
+graph_mat = graph_dict.getMatriceWeight()
+# print(graph_mat)
 
 # initial matrix
 # graph = [[ 0, 3, 0, 0, 0, 8, 0 ], 
@@ -33,7 +34,7 @@ graph = graph.getMatriceWeight()
 #          [ 0, 0, 12, 0, 11, 0, 0 ]]
 
 # perform Prim's Algorithm in order to get the Minimum Spanning Tree (MST) 
-v = tsp.primMST(graph)
+v = tsp.primMST(graph_mat)
 # print("\n", v)
 
 # create a dynamic matrix
@@ -61,8 +62,23 @@ tsp.DFS(edges_list, tsp.V, 0, visited_nodes)
 # add the source node to the final path
 tsp.final_path.append(tsp.final_path[0])
 
-# display the path
-print("\nChemin approximatif :")
-for i in range(len(tsp.final_path)):
-      print(chr(ord("A") + tsp.final_path[i]), "- ", end="")
+# int to char
+index_path = tsp.final_path
+letter_path = []
+for i in range(len(index_path)):
+    letter_path.append(chr(ord("A") + index_path[i]))
+
+# display the approximate path
+print("Chemin approximatif :")
+for i in range(len(letter_path)):
+      print(letter_path[i], "- ", end="")
+print()
+
+# final path after resolving the problem of the approximate algorithm
+final_path = tsp.resolveWithDijkstra(graph_mat, graph_dict, letter_path)
+
+# display the final path
+print("\nChemin final :")
+for i in range(len(final_path)):
+      print(final_path[i], "- ", end="")
 print()
