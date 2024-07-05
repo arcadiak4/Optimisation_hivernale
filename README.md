@@ -7,5 +7,3 @@
 2. une **synthèse** du devoir sous format PDF
 3. un fichier **LINKS** contenant le lien vers la vidéo de présentation de la solution proposée
 4. une sous-arborescence consacrée à l’étude du **cas théorique**
-5. une sous-arborescence consacrée à l’étude du **cas réel de la ville de Montréal**
-6. un **script** exécutant une démonstration de la solution
